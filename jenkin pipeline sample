@@ -13,6 +13,13 @@ pipeline {
                 git branch: 'main', url: "${GITHUB_REPO}"
             }
         }
+ stages {
+        stage('Clone Repository') {
+            steps {
+                echo 'Cloning the GitHub repository...'
+                git branch: 'main', url: "${GITHUB_REPO}"
+            }
+        }
 
         stage('Build') {
             steps {
