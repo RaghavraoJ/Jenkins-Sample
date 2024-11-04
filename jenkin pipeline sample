@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+
+    environment {
+        // Set your GitHub repository URL here
+        GITHUB_REPO = 'https://github.com/yourusername/your-repo-name.git'
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                echo 'Cloning the GitHub repository...'
+                git branch: 'main', url: "${GITHUB_REPO}"
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the project...'
+                // You can modify this step according to your build system, e.g., for a Maven build use:
+                // sh 'mvn clean install'
+                sh 'echo "No build system set up yet, just practicing Jenkins."'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                // Add your testing step here, for example, if you have unit tests:
+                // sh 'mvn test'
+                sh 'echo "Running sample tests for practice."'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the application...'
+                // Add your deploy commands here, this can be Docker commands, AWS CLI, etc.
+                sh 'echo "Deployment step not set up yet."'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning up workspace...'
+            cleanWs() // This will clean up the workspace after the pipeline runs
+        }
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+    }
+}
